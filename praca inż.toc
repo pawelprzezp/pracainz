@@ -1,0 +1,10 @@
+\babel@toc {polish}{}
+\babel@toc {polish}{}
+\contentsline {chapter}{\numberline {1}Wst\IeC {\k e}p}{3}
+\contentsline {chapter}{\numberline {2}Analiza problemu}{5}
+\contentsline {section}{\numberline {2.1}Nulla quis enim ut erat rutrum feugiat}{5}
+\contentsline {chapter}{\numberline {3}Specyfikacja projektu}{7}
+\contentsline {section}{\numberline {3.1}Matryca mikrofon\IeC {\'o}w}{7}
+\contentsline {section}{\numberline {3.2}Generator obwiedni}{8}
+\contentsline {section}{\numberline {3.3}Mikrokontroler}{9}
+\contentsline {chapter}{Bibliografia}{9}
