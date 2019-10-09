@@ -21,6 +21,7 @@
 %pakiety dodajÄ…ce duĹĽo dodatkowych poleceĹ„ matematycznych
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{upgreek}
 
 %pakiety wspomagajÄ…ce i poprawiajÄ…ce skĹ‚adanie tabel
 \usepackage{supertabular}
@@ -83,34 +84,71 @@
 Wstępwstepepepepepepepepeppeepep
 
 \chapter{Analiza problemu}
-Analaliza
-
-\section{Nulla quis enim ut erat rutrum feugiat}
-Nulla quis enim ut erat rutrum feugiat. Suspendisse lacinia tempor mi. Vestibulum nec lacus sed est rutrum cursus. Cras ultrices est eget pede. Sed ullamcorper ultrices tellus. Nulla lectus. Nunc consectetuer, quam quis sagittis vulputate, dui leo molestie augue, a commodo tellus tortor a turpis. Nam et ipsum. Ut placerat aliquet enim. Suspendisse potenti. Etiam volutpat tortor in mauris. Praesent dapibus congue arcu. 
-
-In hac habitasse platea dictumst. In pulvinar, leo sit amet placerat laoreet, metus metus porttitor mi, vitae nonummy nisi sem eget sapien. In velit velit, pellentesque ac, luctus vel, ornare malesuada, leo. Nunc quis sapien. Vivamus risus justo, faucibus sit amet, varius et, bibendum at, tortor. Quisque in arcu sit amet velit faucibus dignissim. Phasellus dapibus ante non risus. Nunc magna turpis, vehicula quis, egestas sit amet, accumsan sit amet, lorem. Curabitur eu felis in ligula elementum luctus. Aenean porttitor dui sed tellus ultrices vestibulum. Morbi neque. 
+Źródłem dźwięku jest ciało wytrwarzające mechaniczną falę poprzeczną, fala ta może rozchodzić się tylko w ośrodkach sprężystych takich jak ciała stałe, ciecze i gazy. Mikrofon tak samo jak ludzkie ucho jest wrażliwy na ciśnienie akustyczne, "czyli zmienne w czasie odchylenie wartości ciśnienia statycznego panującego w ośrodku wywołane rozchodzeniem w nim fali akustycznej". %wikipedia
+Źródła dźwięku można lokalizować i analizować za pomocą układów mikrofonowych oraz różnych metod. Poprawne rozwiąznie problemu zlokalizowania dźwięku polega na dobraniu odpowiedniego algorytmu lokalizacji oraz na poprawnym skonstruowaniu matrycy mikrofonów.  \newline
 
 
 
-\begin{itemize}
-\item Mauris nonummy lorem at orci.
-\item Donec accumsan aliquam libero.
-\item Donec fringilla ultricies diam.
-\item Nulla venenatis est non ligula.
-\item Morbi in mi convallis dolor accumsan egestas.
-\item Sed euismod nibh in nulla.
-\item Sed rhoncus lorem at lectus.
-\item Pellentesque fermentum rutrum dui.
+
+\section{TDOA}
+Metoda Time Delay of Arrival(TDOA)jest często wykorzystywana w systemach lokalizacji źródła dźwięku ze względu na prostotę jej implementacji. Polega na zbieraniu próbek dźwięku i ich analizie, która odbywa się głównie w dwóch etapach. Pierwszym etapem jest identyfikacja opóźnienia czasowego próbek na różnych mikrofonach, opóźnienie to oznacza się symbolem $\tau$. Kolejny etap to obliczenie położenia źródła dźwięku na podstawie geometrii matrycy mikrofonów.
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.5\textwidth, angle=0]{matryca.png}
+
+    \caption{Liniowa matryca mikrofonów}
+
+    
+
+\end{figure}
+\newpage Posiadając dane takie jak  opóźnienie synału oraz odległość miedzy mikrofonami, można wyznaczyć kąt $\theta$ za pomocą wzoru:
+\begin{equation}
+\theta = arcsin(\frac{\tau*s}{d}) 
+\end{equation}
+Gdzie $\tau$ to opóźnienie sygnału, s to prędkość sygnału w danym ośrodku, d to odległość miedzy mikrofonami.
+
+\section{Delay and Sum Beamforming}
+Beamforming to metoda przetwarzania danych pozyskancyh z matrycy czujników w celu wytworzenia obrazu rozkładu sił źródła sygnału. Technika ta jest stosowana zarówno do ciągłego jak i dyskretnego rozkładu sygnału, pozwala ona na budowe różnego typu matryc, w zależności od dostępnego sprzętu, pożądanej rozdzielczości przestrzennej oraz wrażliwości na wybrany kierunek. W porównaniu do metody TDOA beamforming opiera się o formowanie wiązki co wymaga wiele większej wydajności obliczeniowej. Konieczne też jest dokładne umieszcznie mikrofonów na matrycy, by uniknąć zjawiska aliasingu przestrzennego.
+\newline Aliasingu przestrzennego można uniknąć jeśli różnica faz miedzy dwoma próbkowanymi sygnałami będzie mieściła się w przedziale wartości (-$\pi$,$\pi$), warunek ten jest spełniony gdy odległość miedzy czujnikami odpowiada nierówności:
+\begin{equation}
+ d <(\frac{s}{f_{max}}) 
+\end{equation}
+
+Najprostsze podejście związane z formowaniem wiązki sygnału opiera się na zasadzie DAS(Delay and Sum). Metoda ta polega na obliczaniu sygnału wyjściowego beamformera dla przewidywanych lokazlizacji zasobu, a następnie znalezienie maksimum wyjścia i w konsekwencji wyznacznie lokalizacji źródła sygnału.
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.5\textwidth, angle=0]{DAS.png}
+
+    \caption{Schemat blokowy reprezentujący metodę DAS}
+
+    
+
+\end{figure}
+\newline 
+Kierunek wyjścia wiązki $y_{\Phi}[k]$ jest określony w dziedzinie czasu przez zestaw wag $h_{i}$:
+\begin{equation}
+ y_{\Phi}[k] = \sum_{i=1}^n x_{i}[k-h_{i}(\Phi)] 
+\end{equation}
+Gdzie $x_{i}[n]$ jest sygnałem odebranym przez mikrofon a $h_{i}(\Phi)$ jest opóźnieniem dla charakterystyki kierunkowej kąta.
+Wartość RMS dla charakterystyk kierunkowych kąta oblicza się ze wzoru:
+\begin{equation}
+ V_{RMS}[\phi] = \sqrt{\frac{1}{N}\sum_{i=1}^N y_{\Phi}[i]^2 }
+\end{equation}
+Maksymalna wartość wyjścia RMS beamformera determinuje kąt pod którym znajduję się źródło dźwięku:
+\begin{equation}
+ \alpha = argmax(V_{RMS}[\phi])
+\end{equation}
+ Upraszczając przebieg algorytmu wygląda w sposób następujący:
+ \begin{itemize}
+\item Rejestracja sygnału.
+\item Sumowanie opóźnień odpowiadająccych zmianie położenia względem położenia referencyjnego. 
+\item Sumowanie przebiegu dla każdego sygnału.
+\item Utworzenie funkcji korelacji oraz znalezienie jej maksimum które odpowiada szukanemu przez nas kątowi.
 \end{itemize}
-
-Proin euismod. Curabitur adipiscing ipsum ac augue. Maecenas hendrerit tortor non velit suscipit laoreet. Aenean tempus. Nunc convallis. Aenean sed erat. Etiam massa nulla, interdum pretium, faucibus nec, sollicitudin vitae, lorem. Quisque vulputate cursus pede. Phasellus enim ipsum, lacinia vel, sodales ac, faucibus et, tortor. Aliquam hendrerit. Aliquam erat volutpat. Quisque dui lorem, placerat eu, commodo et, condimentum sed, nibh. Nulla eu orci in nibh pretium tincidunt. Pellentesque mi massa, fringilla eu, vehicula consectetuer, sodales a, nisi. 
-
-Vivamus ut risus in quam porttitor venenatis. Phasellus iaculis enim id pede. Etiam aliquam vehicula nibh. Cras congue dui. Mauris velit. Morbi eu magna nec ligula laoreet cursus. In pulvinar dui a urna. Morbi commodo. Cras non tortor in lorem fringilla volutpat. Duis et turpis. Quisque sit amet massa. Aliquam et metus eget lectus venenatis egestas. Nulla facilisi. Nulla tellus arcu, mollis eget, nonummy non, sollicitudin id, tellus. 
-
-Quisque pretium eleifend turpis. Nulla ut pede gravida ante iaculis convallis. Quisque luctus, eros a varius rutrum, ligula ligula venenatis nisi, ut nonummy nisl ipsum vitae est. Etiam mauris risus, blandit ac, placerat id, varius consectetuer, pede. Fusce cursus diam a arcu. Pellentesque luctus turpis. Sed tortor. Sed eget arcu. Maecenas sed leo eget nunc fringilla ornare. Aenean purus justo, tristique eu, iaculis a, convallis in, augue. Nam feugiat magna eu magna. 
-
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec justo diam, auctor vitae, consectetuer sed, aliquet non, lectus. Suspendisse id lectus. Integer fermentum metus non felis. Praesent dui augue, auctor non, congue sed, aliquam vel, quam. Fusce et ligula dignissim sapien congue scelerisque. Phasellus tincidunt. Aliquam tempus, leo sollicitudin commodo aliquam, neque nisl nonummy ante, ac tristique lacus odio nec libero. Cras nec nisl sed erat commodo eleifend. Vivamus tellus. Fusce nec nibh ut neque malesuada feugiat. Nam molestie volutpat lacus. Aliquam sollicitudin nunc at turpis. Maecenas lectus quam, aliquam nec, aliquet eget, porta non, massa. Duis viverra nonummy mauris.
-
 
 \chapter{Specyfikacja projektu}
 System składa się z trzech bloków:
@@ -188,7 +226,7 @@ Poszukiwania zawężono do mikrokontrolerów z rodziny F4, ponieważ są one opa
 \begin{itemize}
 \item Częstotliwość taktowania do 180Mhz.
 \item Trzy przetworniki ADC o rozdzielczości 12 bitów.
-\item 16- strumieniowy kontroler DMA.
+\item 16 strumieniowy kontroler DMA.
 \item 6 interfejsów UART, które pozwolą na jednoczesne monitorowanie każdego z mikrofonów przy przeprowadzaniu testów.
 \item 128kB pamięci RAM.
 \end{itemize} 
