@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.7)  9 OCT 2019 22:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.7)  10 OCT 2019 14:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -800,17 +800,17 @@ Rozdzia\l  1.
 ]
 Rozdzia\l  2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--89
+Underfull \hbox (badness 10000) in paragraph at lines 87--90
 
  []
 
 <matryca.png, id=33, 402.00188pt x 398.99063pt>
 File: matryca.png Graphic file (type png)
 <use matryca.png>
-Package pdftex.def Info: matryca.png  used on input line 99.
+Package pdftex.def Info: matryca.png  used on input line 100.
 (pdftex.def)             Requested size: 227.62204pt x 225.91718pt.
 [5]
-Overfull \hbox (1.47076pt too wide) in paragraph at lines 106--107
+Overfull \hbox (1.47076pt too wide) in paragraph at lines 107--108
 []\T1/lmr/m/n/12 Posiadaj¡c dane ta-kie jak opó¹-nie-nie sy-naªu oraz od-le-gªo
 ±¢ mie-dzy mi-kro-fo-nami, mo»na
  []
@@ -818,70 +818,75 @@ Overfull \hbox (1.47076pt too wide) in paragraph at lines 106--107
 <DAS.png, id=38, 531.48563pt x 339.51843pt>
 File: DAS.png Graphic file (type png)
 <use DAS.png>
-Package pdftex.def Info: DAS.png  used on input line 124.
+Package pdftex.def Info: DAS.png  used on input line 125.
 (pdftex.def)             Requested size: 227.62204pt x 145.40984pt.
-[6 <./matryca.png (PNG copy)>]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 147.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 128.
 
- (/usr/share/texmf/tex/latex/lm/omslmr.fd
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [6 <./matryca.png (PNG copy)>]
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 148.
+
+
+(/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 147.
-
-[7 <./DAS.png (PNG copy)>] [8
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 148.
+ [7 <./DAS.png (PNG copy)>] [8
 
 
 ]
 Rozdzia\l  3.
-<detektor1.jpg, id=54, 451.6875pt x 451.6875pt>
+<detektor1.jpg, id=55, 451.6875pt x 451.6875pt>
 File: detektor1.jpg Graphic file (type jpg)
 <use detektor1.jpg>
-Package pdftex.def Info: detektor1.jpg  used on input line 173.
+Package pdftex.def Info: detektor1.jpg  used on input line 174.
 (pdftex.def)             Requested size: 150.23137pt x 150.23589pt.
 [9]
-<detektor2.jpg, id=59, 192.72pt x 148.1535pt>
+<detektor2.jpg, id=60, 192.72pt x 148.1535pt>
 File: detektor2.jpg Graphic file (type jpg)
 <use detektor2.jpg>
-Package pdftex.def Info: detektor2.jpg  used on input line 194.
+Package pdftex.def Info: detektor2.jpg  used on input line 195.
 (pdftex.def)             Requested size: 150.23137pt x 115.48918pt.
 
-Overfull \hbox (7.95924pt too wide) in paragraph at lines 202--203
+Overfull \hbox (7.95924pt too wide) in paragraph at lines 203--204
 \T1/lmr/m/n/12 au-to-ma-tyczn¡ kon-trol¦ wzmoc-nie-nia, mo»-li-wo±¢ re-gu-lo-wa
 -nia wspóª-czyn-nika At-tack/Release
  []
 
-<obwiednia.png, id=60, 1927.2pt x 547.04375pt>
+<obwiednia.png, id=61, 1927.2pt x 547.04375pt>
 File: obwiednia.png Graphic file (type png)
 <use obwiednia.png>
-Package pdftex.def Info: obwiednia.png  used on input line 209.
+Package pdftex.def Info: obwiednia.png  used on input line 210.
 (pdftex.def)             Requested size: 273.14922pt x 77.52882pt.
 [10 <./detektor1.jpg> <./detektor2.jpg> <./obwiednia.png>]
 No file "praca inÅ¼".bbl.
 [11] (./praca inÅ¼.aux) ) 
 Here is how much of TeX's memory you used:
- 4220 strings out of 492982
- 54033 string characters out of 6134896
- 123690 words of memory out of 5000000
- 7644 multiletter control sequences out of 15000+600000
- 58383 words of font info for 49 fonts, out of 8000000 for 9000
+ 4261 strings out of 492982
+ 54661 string characters out of 6134896
+ 123700 words of memory out of 5000000
+ 7681 multiletter control sequences out of 15000+600000
+ 58702 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,15n,25p,659b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,15n,25p,808b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/u
 sr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/l
-m/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/
-texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx
+m/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texm
+f/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx
 10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fon
 ts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.p
 fb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/t
 ype1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></us
 r/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/pub
 lic/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/
-texmf/fonts/type1/public/lm/lmsy10.pfb>
-Output written on "praca inÅ¼.pdf" (15 pages, 554145 bytes).
+texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/
+lmtt10.pfb>
+Output written on "praca inÅ¼.pdf" (15 pages, 577086 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 76 compressed objects within 1 object stream
+ 115 PDF objects out of 1000 (max. 8388607)
+ 79 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

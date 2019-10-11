@@ -84,8 +84,9 @@
 Wstępwstepepepepepepepepeppeepep
 
 \chapter{Analiza problemu}
-Źródłem dźwięku jest ciało wytrwarzające mechaniczną falę poprzeczną, fala ta może rozchodzić się tylko w ośrodkach sprężystych takich jak ciała stałe, ciecze i gazy. Mikrofon tak samo jak ludzkie ucho jest wrażliwy na ciśnienie akustyczne, "czyli zmienne w czasie odchylenie wartości ciśnienia statycznego panującego w ośrodku wywołane rozchodzeniem w nim fali akustycznej". %wikipedia
-Źródła dźwięku można lokalizować i analizować za pomocą układów mikrofonowych oraz różnych metod. Poprawne rozwiąznie problemu zlokalizowania dźwięku polega na dobraniu odpowiedniego algorytmu lokalizacji oraz na poprawnym skonstruowaniu matrycy mikrofonów.  \newline
+Źródłem dźwięku jest ciało wytrwarzające mechaniczną falę poprzeczną, fala ta może rozchodzić się tylko w ośrodkach sprężystych takich jak ciała stałe, ciecze i gazy. Mikrofon tak samo jak ludzkie ucho jest wrażliwy na ciśnienie akustyczne,  czyli zmienne w czasie odchylenie wartości ciśnienia statycznego panującego w ośrodku wywołane rozchodzeniem w nim fali akustycznej". %wikipedia
+Źródła dźwięku można lokalizować i analizować za pomocą układów mikrofonowych oraz różnych metod. Poprawne rozwiąznie problemu zlokalizowania dźwięku polega na dobraniu odpowiedniego algorytmu lokalizacji oraz na poprawnym skonstruowaniu matrycy mikrofonów. 
+ \newline
 
 
 
@@ -103,20 +104,20 @@ Metoda Time Delay of Arrival(TDOA)jest często wykorzystywana w systemach lokali
     
 
 \end{figure}
-\newpage Posiadając dane takie jak  opóźnienie synału oraz odległość miedzy mikrofonami, można wyznaczyć kąt $\theta$ za pomocą wzoru:
+\newpage Posiadając dane takie jak  opóźnienie synału oraz odległość miedzy mikrofonami, można wyznaczyć kąt $\theta$ za pomocą wzoru,
 \begin{equation}
-\theta = arcsin(\frac{\tau*s}{d}) 
+\theta = arcsin(\frac{\tau*V_{a}}{d}) 
 \end{equation}
-Gdzie $\tau$ to opóźnienie sygnału, s to prędkość sygnału w danym ośrodku, d to odległość miedzy mikrofonami.
+gdzie $\tau$ to opóźnienie sygnału, $V_{a}$ to prędkość sygnału w danym ośrodku, $d$ to odległość miedzy mikrofonami.
 
-\section{Delay and Sum Beamforming}
-Beamforming to metoda przetwarzania danych pozyskancyh z matrycy czujników w celu wytworzenia obrazu rozkładu sił źródła sygnału. Technika ta jest stosowana zarówno do ciągłego jak i dyskretnego rozkładu sygnału, pozwala ona na budowe różnego typu matryc, w zależności od dostępnego sprzętu, pożądanej rozdzielczości przestrzennej oraz wrażliwości na wybrany kierunek. W porównaniu do metody TDOA beamforming opiera się o formowanie wiązki co wymaga wiele większej wydajności obliczeniowej. Konieczne też jest dokładne umieszcznie mikrofonów na matrycy, by uniknąć zjawiska aliasingu przestrzennego.
-\newline Aliasingu przestrzennego można uniknąć jeśli różnica faz miedzy dwoma próbkowanymi sygnałami będzie mieściła się w przedziale wartości (-$\pi$,$\pi$), warunek ten jest spełniony gdy odległość miedzy czujnikami odpowiada nierówności:
+\section{Beamforming --- opóźnienie i sumowanie}
+Metoda {\em beamforming} pierwotnie została stworzona na potrzeby kształtowania wiązki sygnału emitowanej przez nadajniki. Zauważono że może być ona wykorzystywana w przypadku odbiorników do przetwarzania danych pozyskancyh z matrycy czujników w celu wyznaczenia obrazu kierunkowego natężenia sygnału . Technika ta jest stosowana zarówno do ciągłego jak i dyskretnego rozkładu sygnału. Pozwala ona na budowe różnego typu matryc, w zależności od dostępnego sprzętu, pożądanej rozdzielczości przestrzennej oraz wrażliwości na wybrany kierunek. W porównaniu do metody TDOA {\em beamforming} wymaga wiele większej wydajności obliczeniowej. Konieczne też jest odpowiednie umieszcznie mikrofonów na matrycy, by uniknąć aliasingu przestrzennego.
+\newline Tego niekorzystnego zjawiska można uniknąć jeśli różnica faz miedzy dwoma próbkowanymi sygnałami będzie mieściła się w przedziale wartości (-$\pi$,$\pi$), warunek ten jest spełniony gdy odległość miedzy czujnikami odpowiada nierówności:
 \begin{equation}
  d <(\frac{s}{f_{max}}) 
 \end{equation}
 
-Najprostsze podejście związane z formowaniem wiązki sygnału opiera się na zasadzie DAS(Delay and Sum). Metoda ta polega na obliczaniu sygnału wyjściowego beamformera dla przewidywanych lokazlizacji zasobu, a następnie znalezienie maksimum wyjścia i w konsekwencji wyznacznie lokalizacji źródła sygnału.
+Najprostsze podejście związane z formowaniem wiązki sygnału opiera się na algorytmie DAS (Delay and Sum). W podejściu tym sygnały otrzymane z każdego z mikrofonów jest podawany na wejście osobnego bloku, który wprowadza odpowiednie opóźnienie. Otrzymane w ten sposób sygnały z wyjść wspomnianych bloków są sumowane. Układ taki określany jest mianem {\em beamformer} (patrz rys. \ref{fig-beamformer}).
 \begin{figure}[ht]
 
     \centering
@@ -124,14 +125,14 @@ Najprostsze podejście związane z formowaniem wiązki sygnału opiera się na z
   \includegraphics[width=0.5\textwidth, angle=0]{DAS.png}
 
     \caption{Schemat blokowy reprezentujący metodę DAS}
-
+ \label{fig-beamformer}
     
 
 \end{figure}
 \newline 
 Kierunek wyjścia wiązki $y_{\Phi}[k]$ jest określony w dziedzinie czasu przez zestaw wag $h_{i}$:
 \begin{equation}
- y_{\Phi}[k] = \sum_{i=1}^n x_{i}[k-h_{i}(\Phi)] 
+ y_{\Phi}[k] = \sum_{i=1}^n x_{i}[k-h_{i}(\phi)] 
 \end{equation}
 Gdzie $x_{i}[n]$ jest sygnałem odebranym przez mikrofon a $h_{i}(\Phi)$ jest opóźnieniem dla charakterystyki kierunkowej kąta.
 Wartość RMS dla charakterystyk kierunkowych kąta oblicza się ze wzoru:

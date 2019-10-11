@@ -3,7 +3,7 @@
 \contentsline {chapter}{\numberline {1}Wst\IeC {\k e}p}{3}
 \contentsline {chapter}{\numberline {2}Analiza problemu}{5}
 \contentsline {section}{\numberline {2.1}TDOA}{5}
-\contentsline {section}{\numberline {2.2}Delay and Sum Beamforming}{6}
+\contentsline {section}{\numberline {2.2}Beamforming --- op\IeC {\'o}\IeC {\'z}nienie i sumowanie}{6}
 \contentsline {chapter}{\numberline {3}Specyfikacja projektu}{9}
 \contentsline {section}{\numberline {3.1}Matryca mikrofon\IeC {\'o}w}{9}
 \contentsline {section}{\numberline {3.2}Generator obwiedni}{10}
