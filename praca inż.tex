@@ -215,7 +215,7 @@ Czujnik firmy Adafruit nie posiada wyjścia umożliwiającego pomiar amplitudy d
 \end{figure}
 \newpage
 Dioda umożliwia przepływ prądu tylko jeśli zacisk wejściowy ma potencjał wyższy niż zacisk wyjściowy, kondensator gromadzi ładunek na zboczu narastającym następnie powoli uwalnia go przez rezystor gdy wzgórze opada co w efekcie pozwala uzyskać  filtr górnoprzepustowy. Do zbudowania układu użyto diody 1N914 ze względu na jej dużą szybkość przełączania, wysoką przewodność oraz niezawodność. 
-\section{Mikrokontroler}
+\section{Mikrokontroler i moduł bluetooth}
 Kolejnym krokiem przetwarzania sygnału uzyskanego z matrycy mikrofonów jest jego spróbkowanie oraz konwersja do postaci cyfrowej, aby niepotrzebnie nie zwiększać ilości części w układzie elektronicznym zdecydowano się na zastosowanie przetwornika ADC który będzie jednym z peryferiów mikrokontrolera. Przy projektowaniu systemu brano pod uwagę głównie mikrokontrolery firmy STM32 ze względu na:
 \begin{itemize}
 \item Generator szkieletu projektu CubeMX który przyśpiesza pracę związane z konfiguracją.
@@ -231,6 +231,124 @@ Poszukiwania zawężono do mikrokontrolerów z rodziny F4, ponieważ są one opa
 \item 6 interfejsów UART, które pozwolą na jednoczesne monitorowanie każdego z mikrofonów przy przeprowadzaniu testów.
 \item 128kB pamięci RAM.
 \end{itemize} 
+\chapter{Projekt i realizacja modułu
+ kierunku przylotu sygnału akustycznego}
+ 
+ \section{Założenia działania modułu}
+  Moduł został zaprojektowany tak by mógł składać się z trzech oddzielnych członów opisanych we wcześniejszym rozdziale. Zasade ich wspólnego działania opisuje schemat blokowy(patrz rys. \ref{fig-schematblokowy}).
+  \begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.5\textwidth, angle=0]{diagram.png}
+
+    \caption{Schemat blokowy modułu}
+ \label{fig-schematblokowy}
+    
+
+\end{figure}
+
+Wzmocniony sygnał audio pochodzący z mikrofonów zostaje podany na wejście mikrokontrolera i detektora obwiedni. Dodatkowo możliwe też jest bezpośrednie podłączenie do układu oscyloskopu, który przyda się podczas fazy testowej modułu. Wyjście detektora obwiedni podłączono do mikrokontrolera, który za pomocą złącza UART wysyła dane do komputera.
+Porównanie sygnałów audio otrzymanych przez mikrofony oraz mikrokontroler posłuży do sprawdzenia poprawności działania układu. 
+\section{Schemat oraz płytka PCB}
+Do zaprojektowania schematu elektronicznego oraz płytki PCB zostało użyte oprogramowanie KiCad.
+\subsection{Sekcja zasilania}
+Moduł został zasilony napięciem stałym 5V pochodzącym z zewnętrznego zasilacza sieciowego. Jednak z uwagi na to że mikrokontroler oraz systemy  mikrofonowe powinny zostać zasilone napięciem 3,3V, do modułu zaimplementowano stabilizator liniowy LM1117(patrz rys. \ref{fig-stabilizator}).
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.7\textwidth, angle=0]{zasilanie.png}
+
+    \caption{Stabilizator liniowy}
+ \label{fig-stabilizator}
+    
+
+\end{figure}
+
+W projekcie pominięto zabezpieczenie przed odwrotną polaryzacją źródła zasilania, ponieważ użyta wtyczka zasilacza nie pozwala podłączyć zasilania odwrotnie.
+
+\subsection{Sekcja mikrofonów}
+Ze względu na fakt, że mikrofony znajdują się na gotowych komercyjnych PCB , zostaną one przylutowane do płytki głównej poprzez goldpin. Zasilane są one napięciem 3,3V (patrz rys. \ref{fig-mikrofony}).
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.9\textwidth, angle=0]{mikrofony.png}
+
+    \caption{Moduły mikrofonów}
+ \label{fig-mikrofony}
+    
+
+\end{figure}
+\subsection{Sekcja detektora obwiedni}
+Detektor obwiedni został zaprojektowany na zasadzie diody oraz rezystora i kondensatora połączonych do niej równolegle (patrz rys. \ref{fig-detektory}).
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.5\textwidth, angle=0]{detektory.png}
+
+    \caption{Schemat detektorów obwiedni}
+ \label{fig-detektory}
+    
+
+\end{figure}
+
+W tej sekcji zrealizowano również wyprowadzenie używane przy podłączeniu oscyloskopów (patrz rys. \ref{fig-oscyloskop}).
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.15\textwidth, angle=0]{oscyloskop.png}
+
+    \caption{Złącza testowe oscyloskopu}
+ \label{fig-oscyloskop}
+    
+
+\end{figure}
+\newpage
+
+\subsection{Sekcja mikrokontrolera}
+Mikrokontroler został zasilony napięciem 3.3V, dotakowo przy jego sekcji zasilania zastosowano filtry tak aby całkowicie wyeliminować wpływ ewentualnych tętnień na jego pracę (patrz rys. \ref{fig-filtry}).
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=1.1\textwidth, angle=0]{filtry.png}
+
+    \caption{Zasilanie mikrokontrolera}
+ \label{fig-filtry}
+    
+
+\end{figure}
+
+Kolejną częścią tej sekcji jest podłączenie do przetwornika ADC mikrokontrolera sygnałów otrzymanych z generatora obwiedni oraz mikrofonów (patrz rys. \ref{fig-adc}).
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.6\textwidth, angle=0]{podlaczenie.png}
+
+    \caption{Wejścia ADC}
+ \label{fig-adc}
+    
+
+\end{figure}
+
+Wyprowadzono także złącze programatora, oprócz jej domyślej funkcji posłóży ono także do wizualizacji danych z mikrofonów za pomocą STM Studio (patrz rys. \ref{fig-programator}).
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.6\textwidth, angle=0]{programator.png}
+
+    \caption{Złącze programatora}
+ \label{fig-programator}
+    
+
+\end{figure}
+
 % \appendix tworzy dodatek
 
 \addcontentsline{toc}{chapter}{\bibname} %utworzenie w spisie treĹ›ci pozycji Literatura

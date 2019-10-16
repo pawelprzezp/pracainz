@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.7)  10 OCT 2019 14:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.10.7)  16 OCT 2019 20:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -860,33 +860,89 @@ File: obwiednia.png Graphic file (type png)
 <use obwiednia.png>
 Package pdftex.def Info: obwiednia.png  used on input line 210.
 (pdftex.def)             Requested size: 273.14922pt x 77.52882pt.
-[10 <./detektor1.jpg> <./detektor2.jpg> <./obwiednia.png>]
+[10 <./detektor1.jpg> <./detektor2.jpg> <./obwiednia.png>] [11] [12
+
+
+]
+Rozdzia\l  4.
+<diagram.png, id=73, 482.80376pt x 463.7325pt>
+File: diagram.png Graphic file (type png)
+<use diagram.png>
+Package pdftex.def Info: diagram.png  used on input line 243.
+(pdftex.def)             Requested size: 227.62204pt x 218.62651pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13 <./diagram.png>]
+<zasilanie.png, id=78, 1107.38719pt x 466.74374pt>
+File: zasilanie.png Graphic file (type png)
+<use zasilanie.png>
+Package pdftex.def Info: zasilanie.png  used on input line 261.
+(pdftex.def)             Requested size: 318.66946pt x 134.31241pt.
+<mikrofony.png, id=79, 1186.4325pt x 389.20406pt>
+File: mikrofony.png Graphic file (type png)
+<use mikrofony.png>
+Package pdftex.def Info: mikrofony.png  used on input line 277.
+(pdftex.def)             Requested size: 409.71689pt x 134.40619pt.
+<detektory.png, id=80, 372.64218pt x 536.75531pt>
+File: detektory.png Graphic file (type png)
+<use detektory.png>
+Package pdftex.def Info: detektory.png  used on input line 290.
+(pdftex.def)             Requested size: 227.62204pt x 327.86252pt.
+<oscyloskop.png, id=81, 150.5625pt x 271.76532pt>
+File: oscyloskop.png Graphic file (type png)
+<use oscyloskop.png>
+Package pdftex.def Info: oscyloskop.png  used on input line 303.
+(pdftex.def)             Requested size: 68.28383pt x 123.25531pt.
+ [14 <./zasilanie.png (PNG copy)> <./mikrofony.png (PNG copy)>]
+[15 <./detektory.png (PNG copy)> <./oscyloskop.png (PNG copy)>]
+<filtry.png, id=89, 1347.53438pt x 349.305pt>
+File: filtry.png Graphic file (type png)
+<use filtry.png>
+Package pdftex.def Info: filtry.png  used on input line 318.
+(pdftex.def)             Requested size: 500.77126pt x 129.81113pt.
+
+Overfull \hbox (45.52718pt too wide) in paragraph at lines 318--319
+ [][] 
+ []
+
+<podlaczenie.png, id=90, 782.17218pt x 338.76563pt>
+File: podlaczenie.png Graphic file (type png)
+<use podlaczenie.png>
+Package pdftex.def Info: podlaczenie.png  used on input line 331.
+(pdftex.def)             Requested size: 273.14922pt x 118.30093pt.
+<programator.png, id=91, 640.64343pt x 150.5625pt>
+File: programator.png Graphic file (type png)
+<use programator.png>
+Package pdftex.def Info: programator.png  used on input line 344.
+(pdftex.def)             Requested size: 273.14922pt x 64.19612pt.
 No file "praca inż".bbl.
-[11] (./praca inż.aux) ) 
+[16 <./filtry.png (PNG copy)> <./podlaczenie.png (PNG copy)> <./programator.png
+ (PNG copy)>] (./praca inż.aux) ) 
 Here is how much of TeX's memory you used:
- 4261 strings out of 492982
- 54661 string characters out of 6134896
- 123700 words of memory out of 5000000
- 7681 multiletter control sequences out of 15000+600000
- 58702 words of font info for 50 fonts, out of 8000000 for 9000
+ 4310 strings out of 492982
+ 55471 string characters out of 6134896
+ 123788 words of memory out of 5000000
+ 7722 multiletter control sequences out of 15000+600000
+ 61700 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,15n,25p,808b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/u
-sr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/l
-m/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texm
-f/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx
-10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fon
-ts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.p
-fb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/t
-ype1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/
-texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/
-lmtt10.pfb>
-Output written on "praca inż.pdf" (15 pages, 577086 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathe
+x.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/en
+c/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/s
+hare/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/publi
+c/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/
+texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texm
+f/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/
+type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></u
+sr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmtt10.pfb>
+Output written on "praca inż.pdf" (20 pages, 667790 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 79 compressed objects within 1 object stream
+ 140 PDF objects out of 1000 (max. 8388607)
+ 90 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

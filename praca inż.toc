@@ -7,5 +7,12 @@
 \contentsline {chapter}{\numberline {3}Specyfikacja projektu}{9}
 \contentsline {section}{\numberline {3.1}Matryca mikrofon\IeC {\'o}w}{9}
 \contentsline {section}{\numberline {3.2}Generator obwiedni}{10}
-\contentsline {section}{\numberline {3.3}Mikrokontroler}{11}
-\contentsline {chapter}{Bibliografia}{11}
+\contentsline {section}{\numberline {3.3}Mikrokontroler i modu\IeC {\l } bluetooth}{11}
+\contentsline {chapter}{\numberline {4}Projekt i realizacja modu\IeC {\l }u kierunku przylotu sygna\IeC {\l }u akustycznego}{13}
+\contentsline {section}{\numberline {4.1}Za\IeC {\l }o\IeC {\.z}enia dzia\IeC {\l }ania modu\IeC {\l }u}{13}
+\contentsline {section}{\numberline {4.2}Schemat oraz p\IeC {\l }ytka PCB}{14}
+\contentsline {subsection}{\numberline {4.2.1}Sekcja zasilania}{14}
+\contentsline {subsection}{\numberline {4.2.2}Sekcja mikrofon\IeC {\'o}w}{14}
+\contentsline {subsection}{\numberline {4.2.3}Sekcja detektora obwiedni}{14}
+\contentsline {subsection}{\numberline {4.2.4}Sekcja mikrokontrolera}{16}
+\contentsline {chapter}{Bibliografia}{16}
