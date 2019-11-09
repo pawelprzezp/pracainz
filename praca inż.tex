@@ -215,7 +215,7 @@ Czujnik firmy Adafruit nie posiada wyjścia umożliwiającego pomiar amplitudy d
 \end{figure}
 \newpage
 Dioda umożliwia przepływ prądu tylko jeśli zacisk wejściowy ma potencjał wyższy niż zacisk wyjściowy, kondensator gromadzi ładunek na zboczu narastającym następnie powoli uwalnia go przez rezystor gdy wzgórze opada co w efekcie pozwala uzyskać  filtr górnoprzepustowy. Do zbudowania układu użyto diody 1N914 ze względu na jej dużą szybkość przełączania, wysoką przewodność oraz niezawodność. 
-\section{Mikrokontroler i moduł bluetooth}
+\section{Mikrokontroler}
 Kolejnym krokiem przetwarzania sygnału uzyskanego z matrycy mikrofonów jest jego spróbkowanie oraz konwersja do postaci cyfrowej, aby niepotrzebnie nie zwiększać ilości części w układzie elektronicznym zdecydowano się na zastosowanie przetwornika ADC który będzie jednym z peryferiów mikrokontrolera. Przy projektowaniu systemu brano pod uwagę głównie mikrokontrolery firmy STM32 ze względu na:
 \begin{itemize}
 \item Generator szkieletu projektu CubeMX który przyśpiesza pracę związane z konfiguracją.
@@ -336,18 +336,85 @@ Kolejną częścią tej sekcji jest podłączenie do przetwornika ADC mikrokontr
 
 \end{figure}
 
-Wyprowadzono także złącze programatora, oprócz jej domyślej funkcji posłóży ono także do wizualizacji danych z mikrofonów za pomocą STM Studio (patrz rys. \ref{fig-programator}).
+Wyprowadzono także złącze programatora i interfejsu USART, służą one do programowania mikrokontrolera, debugowania za pomocą STM Studio i wysyłania danych testowych do komputera  (patrz rys. \ref{fig-programator}).
 \begin{figure}[ht]
 
     \centering
 
-  \includegraphics[width=0.6\textwidth, angle=0]{programator.png}
+  \includegraphics[width=0.6\textwidth, angle=0]{usart.png}
 
     \caption{Złącze programatora}
  \label{fig-programator}
     
 
 \end{figure}
+
+\chapter{Testy i eksperymenty}
+\section{Testy mikrofonów i detektorów obwiedni}
+W celu sprawdzenia poprawności działania układu, przeprowadzono testy działania mikrofonów oraz detektorów obwiedni. Do analizy sygnału użyto oscyloskopu. W pierwszej kolejności zbadano przebieg sygnału w ciszy, miało to na celu sprawdzenie w jakim stopniu szumy tła mogą wpłynąć na wyniki pomiarów.(patrz rys. \ref{fig-tlo}). Sygnał oznaczony kolorem zielonym jest wyjściem mikrofonu, natomiast kolorem pomarańczowym oznaczono wyjście detektora obwiedni. 
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.7\textwidth, angle=0]{obwiednia_syg2.png}
+
+    \caption{Szumy tła}
+ \label{fig-tlo}
+    
+
+\end{figure}
+
+Kolejnym krokiem było sprawdzenie poprawności działania detektora obwiedni, aby każda próba była powtarzalna nagrano dźwięk pstryknięcia palcami i odtwarzano go w równych odstępach czasu. Pierwsza próba dowiodła poprawności działania diody prostowniczej w układzie, jednak analizując przebieg można było dojść do wniosku, że filtr dolnoprzepustowy został źle dobrany, dlatego z każdą kolejną próbą zwiększano pojemność kondensatora aż do osiągnięcia satysfakconującego wyniku(patrz rys. \ref{fig-przebieg1}).
+
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.7\textwidth, angle=0]{obwiednia_syg1.png}
+
+    \caption{Pierwsza próba detektora obwiedni}
+ \label{fig-przebieg1}
+    
+
+\end{figure}
+
+
+
+
+
+\section{Testy działania programu}
+Pierwsze testy działania programu zostały przeprowadzone bez podłączania systemu mikrofonów, miało to na celu sprawdzenie działania algorytmu w hermetycznym środowisku, dzięki takiemu działaniu można było założyć że wszystkie błędy wynikały z niepoprawnej implementacji Sum and Delay Bemaforming.
+Na wejście algorytmu został podany sygnał o przebiegu trójkątnym (patrz rys.\ref{fig-sygnal}).
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=1.1\textwidth, angle=0]{sygnal.png}
+
+    \caption{Sygnał podany na wejście algorytmu}
+ \label{fig-sygnal}
+    
+
+\end{figure}
+
+
+Założono że każdy z mikrofonów otrzymał ten sam sygnał który nie jest opóźniony, dla takich danych poprawnie działający algorytm powinien zwrócić maksymalną wartość korelacji w punkcie odpowiadającym kątowi 90 stopni. Wyniki eksperymentu można zaobserwować na poniższym wykresie
+(patrz rys.\ref{fig-suma}). Wykres dowodzi poprawności działania programu, ponieważ widać na nim jak w miare zbliżania się watości kąta do 90 stopni rośnie wartość współczynnika korelacji.
+
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=1.1\textwidth, angle=0]{suma.png}
+
+    \caption{Wartości korelacji}
+ \label{fig-suma}
+    
+
+\end{figure}
+
+%I=dt/T
+
 
 % \appendix tworzy dodatek
 
