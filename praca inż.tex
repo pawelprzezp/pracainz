@@ -16,6 +16,7 @@
 \usepackage{psfrag}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{units}
 \usepackage{lmodern}
 \selectlanguage{polish}
 %pakiety dodajÄ…ce duĹĽo dodatkowych poleceĹ„ matematycznych
@@ -160,11 +161,11 @@ System składa się z trzech bloków:
 \end{itemize}
 \section{Matryca mikrofonów}
 Projekt nie przewidywał budowy matrycy mikrofonów wraz z konstrukcją toru wzmocnienia, dlatego zdecydowano się na zakup gotowego rozwiązania. Na rynku dostępny jest duży wybór czujników mikrofonowych wraz z dedykowanymi układami wzmaczniaczy, dwa z nich zdawały się być najbardziej odpowiednie.\\
-Pierwszym z nich jest detektor dźwięku SEN-14262 produkowany przez firmę SparkFun[Rysunek 3.1], posiada on mikrofon elektretowy o zakresie częstotliwości od 100Hz do 10000Hz. Za wzmocnienie sygnału mikrofonowego odpowiada układ LMV324 z możliwością zmiany wzmocnienia od 20dB do 60 dB, podstawowo wartość ta jest usatwiona na 40 dB. Cały moduł posiada aż trzy niezależne wyjścia:
+Pierwszym z nich jest detektor dźwięku SEN-14262 produkowany przez firmę SparkFun[Rysunek 3.1], posiada on mikrofon elektretowy o zakresie częstotliwości od \unit[100]{Hz} do 10000Hz. Za wzmocnienie sygnału mikrofonowego odpowiada układ LMV324 z możliwością zmiany wzmocnienia od 20dB do 60 dB, podstawowo wartość ta jest usatwiona na 40 dB. Cały moduł posiada aż trzy niezależne wyjścia:
 \begin{itemize}
-\item Audio - analogowy sygnał audio.
-\item Envelope - analogowy sygnał umożliwiający pomiar amplitudy sygnału 
-\item Gate - sygnał cyfrowy pozwalający na detekcje przekroczenia ustalonego poziomu amplitudy.
+\item Audio -- analogowy sygnał audio,
+\item Envelope -- analogowy sygnał umożliwiający pomiar amplitudy sygnału,
+\item Gate -- sygnał cyfrowy pozwalający na detekcje przekroczenia ustalonego poziomu amplitudy.
 \end{itemize}
 
 \begin{figure}
@@ -182,10 +183,10 @@ Pierwszym z nich jest detektor dźwięku SEN-14262 produkowany przez firmę Spar
 
  Drugie rozwiązanie to moduł czujnika dźwięku ze wzmaczniaczem MAX9814 produkowany przez firmę Adafruit[Rysunek 3.2], w jego skład wchodzi mikrofon elektretowy umożliwiający pomiary w zakresie 20Hz-20000Hz. Tor wzmacnienia czujnika jest oparty o układ MAX9814, który oferuje takie możliwości jak:
 \begin{itemize}
-\item AGC(Auto Gain Control) czyli automatycznie zmienne wzmocnienie zależne od poziomu natężenia sygnału wejściowego.
-\item Zmienne maksymalne wzmocnienie sygnału 40dB-50dB-60dB. 
+\item AGC (Auto Gain Control) czyli automatycznie zmienne wzmocnienie zależne od poziomu natężenia sygnału wejściowego.
+\item Zmienne maksymalne wzmocnienie sygnału 40, 50, 60dB. 
 \item Ustawienie współczynnika Attack/Release 
-\item sygnał wyjściowy na poziomie 2Vpp
+\item sygnał wyjściowy na poziomie 2 Vpp
 \end{itemize}
 \newpage
 \begin{figure}
@@ -202,7 +203,7 @@ Pierwszym z nich jest detektor dźwięku SEN-14262 produkowany przez firmę Spar
 
 Ostatecznie wybrano rozwiązanie zaproponowane przez firmę Adafruit, ze względu na automatyczną kontrolę wzmocnienia, możliwość regulowania współczynnika Attack/Release oraz o wiele korzystaniejszą wartość współczynnika zawartości harmonicznych THD który w układzie MAX9814 dla częstotliwości 1kHz plasuje się na poziomie poniżej 0,1\%, dodatkowo MAX9814 posiada o wiele niższą gęstość szumów.
 \section{Generator obwiedni}
-Czujnik firmy Adafruit nie posiada wyjścia umożliwiającego pomiar amplitudy dlatego koniecznie jest skonstruowanie zewnętrznego układu odpowiadającego za generowanie obwiedni, rozwiąznie to podyktowane jest chęcią pominięcia złożonych obliczeń na mikrokontrolerze związanych z tranformatą Hilberta. Zastosowano prosty detektor obwiedni.
+Czujnik firmy Adafruit nie posiada wyjścia umożliwiającego pomiar amplitudy. Dlatego też konieczne jest skonstruowanie zewnętrznego układu odpowiadającego za generowanie obwiedni. Rozwiąznie to podyktowane jest chęcią pominięcia złożonych obliczeń na mikrokontrolerze związanych z tranformatą Hilberta. Zastosowano prosty detektor obwiedni.
 \begin{figure}
 
     \centering
@@ -214,20 +215,21 @@ Czujnik firmy Adafruit nie posiada wyjścia umożliwiającego pomiar amplitudy d
 
 \end{figure}
 \newpage
-Dioda umożliwia przepływ prądu tylko jeśli zacisk wejściowy ma potencjał wyższy niż zacisk wyjściowy, kondensator gromadzi ładunek na zboczu narastającym następnie powoli uwalnia go przez rezystor gdy wzgórze opada co w efekcie pozwala uzyskać  filtr górnoprzepustowy. Do zbudowania układu użyto diody 1N914 ze względu na jej dużą szybkość przełączania, wysoką przewodność oraz niezawodność. 
+\noindent Dioda umożliwia przepływ prądu tylko jeśli zacisk wejściowy ma potencjał wyższy niż zacisk wyjściowy, kondensator gromadzi ładunek na zboczu narastającym następnie powoli uwalnia go przez rezystor gdy wzgórze opada co w efekcie pozwala uzyskać  filtr dolnoprzepustowy. Do zbudowania układu użyto diody 1N914 ze względu na jej dużą szybkość przełączania i wysoką przewodność. 
 \section{Mikrokontroler}
-Kolejnym krokiem przetwarzania sygnału uzyskanego z matrycy mikrofonów jest jego spróbkowanie oraz konwersja do postaci cyfrowej, aby niepotrzebnie nie zwiększać ilości części w układzie elektronicznym zdecydowano się na zastosowanie przetwornika ADC który będzie jednym z peryferiów mikrokontrolera. Przy projektowaniu systemu brano pod uwagę głównie mikrokontrolery firmy STM32 ze względu na:
+Kolejnym krokiem przetwarzania sygnału uzyskanego z matrycy mikrofonów jest jego spróbkowanie oraz konwersja do postaci cyfrowej. 
+Chcąc nie zwiększać ilości elementów w układzie elektronicznym zdecydowano się na zastosowanie przetwornika ADC który będzie jednym z peryferiów mikrokontrolera. Przy projektowaniu systemu brano pod uwagę głównie mikrokontrolery firmy STM32 ze względu na to, że dostępne są:
 \begin{itemize}
-\item Generator szkieletu projektu CubeMX który przyśpiesza pracę związane z konfiguracją.
-\item Wiele darmowych narzędzi oraz przejrzyste IDE SW4.
-\item Biblioteke HAL ułatwiajacą pracę z peryferiami.
-\item Prostote debuggowania przy pomocy STM studio.
+\item aplikacja CubeMX, która generuje szkielet projektu i przyśpiesza pracę związane z konfiguracją mikrokontrolera,
+\item wiele darmowych narzędzi oraz przejrzyste IDE SW4,
+\item biblioteka HAL ułatwiajacą pracę z peryferiami,
+\item aplikacja STM Studio, która umożliwa proste debuggowanie.
 \end{itemize} 
 Poszukiwania zawężono do mikrokontrolerów z rodziny F4, ponieważ są one oparte na rdzeniu CortexM4 pozwalającym na szybką pracę z jednostkami zmiennoprzecinkowymi oraz szybkie obliczenia dzięki wysokiemu taktowaniu rdzenia. Finalnie wybór padł na jednostkę STM32F446RET6, jej zalety szczególnie przydatne przy danym projekcie to:
 \begin{itemize}
-\item Częstotliwość taktowania do 180Mhz.
+\item Częstotliwość taktowania do 180MHz.
 \item Trzy przetworniki ADC o rozdzielczości 12 bitów.
-\item 16 strumieniowy kontroler DMA.
+\item 16--strumieniowy kontroler DMA.
 \item 6 interfejsów UART, które pozwolą na jednoczesne monitorowanie każdego z mikrofonów przy przeprowadzaniu testów.
 \item 128kB pamięci RAM.
 \end{itemize} 
@@ -235,8 +237,8 @@ Poszukiwania zawężono do mikrokontrolerów z rodziny F4, ponieważ są one opa
  kierunku przylotu sygnału akustycznego}
  
  \section{Założenia działania modułu}
-  Moduł został zaprojektowany tak by mógł składać się z trzech oddzielnych członów opisanych we wcześniejszym rozdziale. Zasade ich wspólnego działania opisuje schemat blokowy(patrz rys. \ref{fig-schematblokowy}).
-  \begin{figure}[ht]
+  Moduł został zaprojektowany, tak by mógł składać się z trzech oddzielnych członów opisanych we wcześniejszym rozdziale. Zasadę ich wspólnego działania opisuje schemat blokowy przedstawiony na rys. \ref{fig-schematblokowy}.
+  \begin{figure}[!ht]
 
     \centering
 
@@ -247,9 +249,8 @@ Poszukiwania zawężono do mikrokontrolerów z rodziny F4, ponieważ są one opa
     
 
 \end{figure}
-
-Wzmocniony sygnał audio pochodzący z mikrofonów zostaje podany na wejście mikrokontrolera i detektora obwiedni. Dodatkowo możliwe też jest bezpośrednie podłączenie do układu oscyloskopu, który przyda się podczas fazy testowej modułu. Wyjście detektora obwiedni podłączono do mikrokontrolera, który za pomocą złącza UART wysyła dane do komputera.
-Porównanie sygnałów audio otrzymanych przez mikrofony oraz mikrokontroler posłuży do sprawdzenia poprawności działania układu. 
+%
+Wzmocniony sygnał audio pochodzący z mikrofonów zostaje podany na wejście mikrokontrolera i detektora obwiedni. Dodatkowo możliwe też jest bezpośrednie podłączenie do układu oscyloskopu, który jest pomocny podczas fazy testowej modułu. Wyjście detektora obwiedni podłączono do mikrokontrolera. Dane z mikrokontrolera wysyłane są za pomocą interfejsu UART. Sygnały tego interfejsu przekierowane są do układu MAX232, który do komunikacji z komputerem udostępnia interfejs USB. Porównanie sygnałów audio otrzymanych przez mikrofony oraz mikrokontroler posłuży do sprawdzenia poprawności działania układu. 
 \section{Schemat oraz płytka PCB}
 Do zaprojektowania schematu elektronicznego oraz płytki PCB zostało użyte oprogramowanie KiCad.
 \subsection{Sekcja zasilania}
@@ -385,11 +386,11 @@ Kolejnym krokiem było sprawdzenie poprawności działania detektora obwiedni, a
 \section{Testy działania programu}
 Pierwsze testy działania programu zostały przeprowadzone bez podłączania systemu mikrofonów, miało to na celu sprawdzenie działania algorytmu w hermetycznym środowisku, dzięki takiemu działaniu można było założyć że wszystkie błędy wynikały z niepoprawnej implementacji Sum and Delay Bemaforming.
 Na wejście algorytmu został podany sygnał o przebiegu trójkątnym (patrz rys.\ref{fig-sygnal}).
-\begin{figure}[ht]
+\begin{figure}[!ht]
 
     \centering
 
-  \includegraphics[width=1.1\textwidth, angle=0]{sygnal.png}
+  \includegraphics[width=1\textwidth, angle=0]{sygnal.png}
 
     \caption{Sygnał podany na wejście algorytmu}
  \label{fig-sygnal}
@@ -397,15 +398,16 @@ Na wejście algorytmu został podany sygnał o przebiegu trójkątnym (patrz rys
 
 \end{figure}
 
+\newpage
 
 Założono że każdy z mikrofonów otrzymał ten sam sygnał który nie jest opóźniony, dla takich danych poprawnie działający algorytm powinien zwrócić maksymalną wartość korelacji w punkcie odpowiadającym kątowi 90 stopni. Wyniki eksperymentu można zaobserwować na poniższym wykresie
 (patrz rys.\ref{fig-suma}). Wykres dowodzi poprawności działania programu, ponieważ widać na nim jak w miare zbliżania się watości kąta do 90 stopni rośnie wartość współczynnika korelacji.
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 
     \centering
 
-  \includegraphics[width=1.1\textwidth, angle=0]{suma.png}
+  \includegraphics[width=1\textwidth, angle=0]{suma.png}
 
     \caption{Wartości korelacji}
  \label{fig-suma}
@@ -415,7 +417,33 @@ Założono że każdy z mikrofonów otrzymał ten sam sygnał który nie jest op
 
 %I=dt/T
 
+Następnie, aby sprawdzić poprawność działania algorytmu dla sygnałów opóźnionych na wejście algorytmu podano cztery różne sygnały opóźnione w taki sposób aby symulowały kąt przybycia fali akustycznej równy 70 stopni. Dodatkowo aby upewnić się, że szumy otoczenia nie wpływają na wynik końcowy dodano do sygnału  zakłócenie którego opóźnienie sugeruje, że znajduję się on pod kątem 120 stopni względem matrycy (patrz rys.\ref{fig-opoznienia}). 
 
+\begin{figure}[!ht]
+
+    \centering
+
+  \includegraphics[width=0.9\textwidth, angle=0]{sygnaly.png}
+
+    \caption{Symulowane sygnały}
+ \label{fig-opoznienia}
+    
+
+\end{figure}
+
+Wynikiem tego testu jest wykres korelacji sygnału, który potwierdza, że zaimplementowany algorytm Sum and Delay Beamforming działa poprawnie, ponieważ maksimum korelacji sygnałów odpowiada kątowi 70 stopni (patrz rys.\ref{fig-korelacja}). .
+
+\begin{figure}[!ht]
+
+    \centering
+
+  \includegraphics[width=0.9\textwidth, angle=0]{suma_opoznienie.png}
+
+    \caption{Wartości korelacji dla sygnałów opóźnionych}
+ \label{fig-korelacja}
+    
+
+\end{figure}
 % \appendix tworzy dodatek
 
 \addcontentsline{toc}{chapter}{\bibname} %utworzenie w spisie treĹ›ci pozycji Literatura

@@ -18,4 +18,4 @@
 \contentsline {chapter}{\numberline {5}Testy i eksperymenty}{17}
 \contentsline {section}{\numberline {5.1}Testy mikrofon\IeC {\'o}w i detektor\IeC {\'o}w obwiedni}{17}
 \contentsline {section}{\numberline {5.2}Testy dzia\IeC {\l }ania programu}{18}
-\contentsline {chapter}{Bibliografia}{18}
+\contentsline {chapter}{Bibliografia}{20}
