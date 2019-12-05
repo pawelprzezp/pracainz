@@ -30,8 +30,6 @@
 \usepackage{tabularx}
 \usepackage{hhline}
 
-%pakiet wypisujÄ…cy na marginesie etykiety rĂłwnaĹ„ i rysunkĂłw zdefiniowanych przez \label{}, chcÄ…c wygenerowaÄ‡ finalnÄ… wersjÄ™ dokumentu wystarczy usunÄ…Ä‡ poniĹĽszÄ… liniÄ™
-\usepackage{showlabels}
 
 %definicje wĹ‚asnych poleceĹ„
 \newcommand{\R}{I\!\!R} %symbol liczb rzeczywistych, dziaĹ‚a tylko w trybie matematycznym
@@ -41,7 +39,7 @@
 \title{Wyznaczanie kierunku przylotu sygnału akustycznego z zastosowaniem systemu mikrofonów}
 \engtitle{Determination of the direction of acoustic signal arrival using a microphone system}
 \author{Paweł Rachwalski}
-\supervisor{dr inż. Bogdan Kreczmer. PWr, I-6}
+\supervisor{dr inż. Bogdan Kreczmer. PWr, W-4/K7}
 %\guardian{dr hab. inĹĽ. ImiÄ™ Nazwisko Prof. PWr, I-6} %nie uĹĽywaÄ‡ jeĹ›li opiekun jest tÄ… samÄ… osobÄ… co prowadzÄ…cy pracÄ™
 
 %\date{2008} %standardowo u doĹ‚u strony tytuĹ‚owej umieszczany jest bieĹĽÄ…cy rok, to polecenie pozwala wstawiÄ‡ dowolny rok
@@ -49,27 +47,7 @@
 %poniĹĽej jest lista kierunkĂłw i specjalnoĹ›ci na wydziale elektroniki, naleĹĽy wybraÄ‡ wĹ‚aĹ›ciwe lub dopisaÄ‡ jeĹ›li nie ma odpowiednich
 \field{Automatyka i Robotyka (AIR)}
 \specialisation{Robotyka (ARR)}
-%\specialisation{Komputerowe sieci sterowania (ARK)}
-%\specialisation{Systemy informatyczne w automatyce (ASI)}
-%\specialisation{Komputerowe systemy zarzÄ…dzania \\procesami produkcyjnymi (ARS)}
-%\field{Elektronika i telekomunikacja (EIT)}
-%\specialisation{Akustyka (ETA)}
-%\specialisation{Aparatura elektroniczna (EAE)}
-%\specialisation{Elektroniczne i komputerowe \\systemy automatyki (ESA)}
-%\specialisation{Zastosowania inĹĽynierii komputerowej \\w technice (EZI)}
-%\specialisation{InĹĽynieria dĹşwiÄ™ku (EID)}
-%\specialisation{Elektronika stosowana \\i optokomunikacja (TEO)}
-%\specialisation{Telekomunikacyjne sieci szerokopasmowe (TSS)}
-%\specialisation{Teleinformatyczne sieci mobilne (TSM)}
-%\specialisation{SygnaĹ‚y w telekomunikacji cyfrowej (TSC)}
-%\specialisation{Teleinformatyczne systemy rozsiewcze (TSR)}
-%\field{Informatyka (INF)}
-%\specialisation{Systemy informatyki w medycynie \\i technice (IMT)}
-%\specialisation{InĹĽynieria systemĂłw informatycznych (INS)}
-%\specialisation{InĹĽynieria internetowa (INT)}
-%\specialisation{Systemy i sieci komputerowe (ISK)}
-%\field{Teleinformatyka (TIN)}
-%\specialisation{Teleinformatyka (TIN)}
+
 
 %tutaj zaczyna siÄ™ wĹ‚aĹ›ciwa treĹ›Ä‡ dokumentu
 \begin{document}
@@ -82,25 +60,33 @@
 
 %poniĹĽej znajduje siÄ™ przykĹ‚adowa treĹ›Ä‡ dalszej czÄ™Ĺ›ci dokumentu, zainteresowanych zachÄ™cam do rozszyfrowania frazy "Lorem ipsum" :)
 \chapter{Wstęp}
-Wstępwstepepepepepepepepeppeepep
+Problem lokalizacji źródła dźwięku dotyczy wielu aspektów życia. Poczynając od psychoakustyki, która zajmuje się badaniem zjawisk biologicznych związanych z odczuwaniem fali akustycznej, po badania techniczne transformatorów, w których niechciane prądy upływowe generują dźwięk. W pracy zaproponowano jedną z możliwych metod wyznaczenia kierunku przylotu sygnału. Polega ona na implementacji  algorytmu {\em sum and delay beamforming}. W wyniku pracy zostanie stworzony układ, który sprawdzi się w wielu dziedzinach robotyki, takich jak robot podążający za źródłem dźwięku. Urządzenie takie, oprócz wykorzystania w projektach rekreacyjnych, mogłoby znaleźć zastosowanie przy robotach asystujących w poszukiwaniach ludzi - na przykład po trzęsieniu ziemi.
+
+\section{Cel i założenia}
+Głównym celem pracy jest stworzenie matrycy mikrofonów, która przy użyciu metody {\em beamforming} będzie w stanie wyznaczyć kierunek przylotu fali akustycznej. Aby osiągnąć ten cel należy:
+\begin{itemize}
+\item określić pasmo sygnału, czas jego trwania oraz paramtery,
+\item stworzyć projekt urządzenia oraz je wykonać,
+\item ustalić poprawoność działania urządzenia na podstawie wykonanych eksperymentów i testów.
+\end{itemize}
 
 \chapter{Analiza problemu}
-Źródłem dźwięku jest ciało wytrwarzające mechaniczną falę poprzeczną, fala ta może rozchodzić się tylko w ośrodkach sprężystych takich jak ciała stałe, ciecze i gazy. Mikrofon tak samo jak ludzkie ucho jest wrażliwy na ciśnienie akustyczne,  czyli zmienne w czasie odchylenie wartości ciśnienia statycznego panującego w ośrodku wywołane rozchodzeniem w nim fali akustycznej". %wikipedia
+Źródłem dźwięku jest ciało wytwarzające mechaniczną falę poprzeczną, fala ta może rozchodzić się tylko w ośrodkach sprężystych takich jak ciała stałe, ciecze i gazy. Mikrofon tak samo jak ludzkie ucho jest wrażliwy na ciśnienie akustyczne, czyli zmienne w czasie odchylenie wartości ciśnienia statycznego panującego w ośrodku wywołane rozchodzeniem w nim fali akustycznej. %wikipedia
 Źródła dźwięku można lokalizować i analizować za pomocą układów mikrofonowych oraz różnych metod. Poprawne rozwiąznie problemu zlokalizowania dźwięku polega na dobraniu odpowiedniego algorytmu lokalizacji oraz na poprawnym skonstruowaniu matrycy mikrofonów. 
- \newline
+
 
 
 
 
 \section{TDOA}
-Metoda Time Delay of Arrival(TDOA)jest często wykorzystywana w systemach lokalizacji źródła dźwięku ze względu na prostotę jej implementacji. Polega na zbieraniu próbek dźwięku i ich analizie, która odbywa się głównie w dwóch etapach. Pierwszym etapem jest identyfikacja opóźnienia czasowego próbek na różnych mikrofonach, opóźnienie to oznacza się symbolem $\tau$. Kolejny etap to obliczenie położenia źródła dźwięku na podstawie geometrii matrycy mikrofonów.
+Metoda Time Delay of Arrival(TDOA)jest często wykorzystywana w systemach lokalizacji źródła dźwięku ze względu na prostotę jej implementacji. Polega na zbieraniu próbek dźwięku i ich analizie, która odbywa się głównie w dwóch etapach. Pierwszym etapem jest identyfikacja opóźnienia czasowego próbek na różnych mikrofonach, opóźnienie to oznacza się symbolem $\tau$. Kolejny etap to obliczenie położenia źródła dźwięku na podstawie geometrii matrycy mikrofonów \cite{seltzer2003microphone}.
 \begin{figure}[ht]
 
     \centering
 
   \includegraphics[width=0.5\textwidth, angle=0]{matryca.png}
 
-    \caption{Liniowa matryca mikrofonów}
+    \caption{Liniowa matryca mikrofonów\cite{seltzer2003microphone}}
 
     
 
@@ -109,23 +95,23 @@ Metoda Time Delay of Arrival(TDOA)jest często wykorzystywana w systemach lokali
 \begin{equation}
 \theta = arcsin(\frac{\tau*V_{a}}{d}) 
 \end{equation}
-gdzie $\tau$ to opóźnienie sygnału, $V_{a}$ to prędkość sygnału w danym ośrodku, $d$ to odległość miedzy mikrofonami.
+gdzie $\tau$ to opóźnienie sygnału, $V_{a}$ to prędkość sygnału w danym ośrodku, $d$ to odległość miedzy mikrofonami \cite{seltzer2003microphone}.
 
 \section{Beamforming --- opóźnienie i sumowanie}
 Metoda {\em beamforming} pierwotnie została stworzona na potrzeby kształtowania wiązki sygnału emitowanej przez nadajniki. Zauważono że może być ona wykorzystywana w przypadku odbiorników do przetwarzania danych pozyskancyh z matrycy czujników w celu wyznaczenia obrazu kierunkowego natężenia sygnału . Technika ta jest stosowana zarówno do ciągłego jak i dyskretnego rozkładu sygnału. Pozwala ona na budowe różnego typu matryc, w zależności od dostępnego sprzętu, pożądanej rozdzielczości przestrzennej oraz wrażliwości na wybrany kierunek. W porównaniu do metody TDOA {\em beamforming} wymaga wiele większej wydajności obliczeniowej. Konieczne też jest odpowiednie umieszcznie mikrofonów na matrycy, by uniknąć aliasingu przestrzennego.
-\newline Tego niekorzystnego zjawiska można uniknąć jeśli różnica faz miedzy dwoma próbkowanymi sygnałami będzie mieściła się w przedziale wartości (-$\pi$,$\pi$), warunek ten jest spełniony gdy odległość miedzy czujnikami odpowiada nierówności:
+\newline Tego niekorzystnego zjawiska można uniknąć jeśli różnica faz miedzy dwoma próbkowanymi sygnałami będzie mieściła się w przedziale wartości (-$\pi$,$\pi$), warunek ten jest spełniony gdy odległość miedzy czujnikami odpowiada nierówności \cite{papez2013acoustic}:
 \begin{equation}
  d <(\frac{s}{f_{max}}) 
 \end{equation}
 
-Najprostsze podejście związane z formowaniem wiązki sygnału opiera się na algorytmie DAS (Delay and Sum). W podejściu tym sygnały otrzymane z każdego z mikrofonów jest podawany na wejście osobnego bloku, który wprowadza odpowiednie opóźnienie. Otrzymane w ten sposób sygnały z wyjść wspomnianych bloków są sumowane. Układ taki określany jest mianem {\em beamformer} (patrz rys. \ref{fig-beamformer}).
+Najprostsze podejście związane z formowaniem wiązki sygnału opiera się na algorytmie DAS (Delay and Sum). W podejściu tym sygnały otrzymane z każdego z mikrofonów jest podawany na wejście osobnego bloku, który wprowadza odpowiednie opóźnienie. Otrzymane w ten sposób sygnały z wyjść wspomnianych bloków są sumowane \cite{papez2013acoustic}. Układ taki określany jest mianem {\em beamformer} (patrz rys. \ref{fig-beamformer}).
 \begin{figure}[ht]
 
     \centering
 
   \includegraphics[width=0.5\textwidth, angle=0]{DAS.png}
 
-    \caption{Schemat blokowy reprezentujący metodę DAS}
+    \caption{Schemat blokowy reprezentujący metodę DAS \cite{papez2013acoustic}}
  \label{fig-beamformer}
     
 
@@ -140,7 +126,7 @@ Wartość RMS dla charakterystyk kierunkowych kąta oblicza się ze wzoru:
 \begin{equation}
  V_{RMS}[\phi] = \sqrt{\frac{1}{N}\sum_{i=1}^N y_{\Phi}[i]^2 }
 \end{equation}
-Maksymalna wartość wyjścia RMS beamformera determinuje kąt pod którym znajduję się źródło dźwięku:
+Maksymalna wartość wyjścia RMS beamformera determinuje kąt pod którym znajduję się źródło dźwięku \cite{papez2013acoustic}:
 \begin{equation}
  \alpha = argmax(V_{RMS}[\phi])
 \end{equation}
@@ -155,13 +141,13 @@ Maksymalna wartość wyjścia RMS beamformera determinuje kąt pod którym znajd
 \chapter{Specyfikacja projektu}
 System składa się z trzech bloków:
 \begin{itemize}
-\item Blok matrycy czterech mikrofonów.
-\item Blok odpowiedzialny za wygenerownie i filrację obwiedni sygnału. 
-\item Blok mikrokontrolera.
+\item blok matrycy czterech mikrofonów,
+\item blok odpowiedzialny za wygenerownie i filrację obwiedni sygnału, 
+\item blok mikrokontrolera.
 \end{itemize}
 \section{Matryca mikrofonów}
 Projekt nie przewidywał budowy matrycy mikrofonów wraz z konstrukcją toru wzmocnienia, dlatego zdecydowano się na zakup gotowego rozwiązania. Na rynku dostępny jest duży wybór czujników mikrofonowych wraz z dedykowanymi układami wzmaczniaczy, dwa z nich zdawały się być najbardziej odpowiednie.\\
-Pierwszym z nich jest detektor dźwięku SEN-14262 produkowany przez firmę SparkFun[Rysunek 3.1], posiada on mikrofon elektretowy o zakresie częstotliwości od \unit[100]{Hz} do 10000Hz. Za wzmocnienie sygnału mikrofonowego odpowiada układ LMV324 z możliwością zmiany wzmocnienia od 20dB do 60 dB, podstawowo wartość ta jest usatwiona na 40 dB. Cały moduł posiada aż trzy niezależne wyjścia:
+Pierwszym z nich jest detektor dźwięku SEN-14262 produkowany przez firmę SparkFun (patrz rys. \ref{fig-sen}), posiada on mikrofon elektretowy o zakresie częstotliwości od \unit[100]{Hz} do \unit[10000]{Hz}. Za wzmocnienie sygnału mikrofonowego odpowiada układ LMV324 z możliwością zmiany wzmocnienia od \unit[20]{dB} do \unit[60]{dB}, podstawowo wartość ta jest ustawiona na \unit[40]{dB}. Cały moduł posiada aż trzy niezależne wyjścia:
 \begin{itemize}
 \item Audio -- analogowy sygnał audio,
 \item Envelope -- analogowy sygnał umożliwiający pomiar amplitudy sygnału,
@@ -174,19 +160,19 @@ Pierwszym z nich jest detektor dźwięku SEN-14262 produkowany przez firmę Spar
 
   \includegraphics[width=0.33\textwidth, angle=0]{detektor1.jpg}
 
-    \caption{SparkFun SEN-14262}
+    \caption{SparkFun SEN-14262 \cite{sparkfun}}
 
-    
+    \label{fig-sen}
 
 \end{figure}
 
 
- Drugie rozwiązanie to moduł czujnika dźwięku ze wzmaczniaczem MAX9814 produkowany przez firmę Adafruit[Rysunek 3.2], w jego skład wchodzi mikrofon elektretowy umożliwiający pomiary w zakresie 20Hz-20000Hz. Tor wzmacnienia czujnika jest oparty o układ MAX9814, który oferuje takie możliwości jak:
+ Drugie rozwiązanie to moduł czujnika dźwięku ze wzmaczniaczem MAX9814 produkowany przez firmę Adafruit(patrz rys. \ref{fig-max9814}), w jego skład wchodzi mikrofon elektretowy umożliwiający pomiary w zakresie \unit[20-20000]{Hz}. Tor wzmacnienia czujnika jest oparty o układ MAX9814, który oferuje takie możliwości jak:
 \begin{itemize}
-\item AGC (Auto Gain Control) czyli automatycznie zmienne wzmocnienie zależne od poziomu natężenia sygnału wejściowego.
-\item Zmienne maksymalne wzmocnienie sygnału 40, 50, 60dB. 
-\item Ustawienie współczynnika Attack/Release 
-\item sygnał wyjściowy na poziomie 2 Vpp
+\item AGC (Auto Gain Control) czyli automatycznie zmienne wzmocnienie zależne od poziomu natężenia sygnału wejściowego,
+\item zmienne maksymalne wzmocnienie sygnału \unit[40,50,60]{dB},
+\item ustawienie współczynnika Attack/Release, 
+\item sygnał wyjściowy na poziomie 2 Vpp.
 \end{itemize}
 \newpage
 \begin{figure}
@@ -195,27 +181,27 @@ Pierwszym z nich jest detektor dźwięku SEN-14262 produkowany przez firmę Spar
 
   \includegraphics[width=0.33\textwidth, angle=0]{detektor2.jpg}
 
-    \caption{Adafruit MAX9814}
+    \caption{Adafruit MAX9814 \cite{max9814}}
 
-    
+    \label{fig-max9814}
 
 \end{figure}
 
-Ostatecznie wybrano rozwiązanie zaproponowane przez firmę Adafruit, ze względu na automatyczną kontrolę wzmocnienia, możliwość regulowania współczynnika Attack/Release oraz o wiele korzystaniejszą wartość współczynnika zawartości harmonicznych THD który w układzie MAX9814 dla częstotliwości 1kHz plasuje się na poziomie poniżej 0,1\%, dodatkowo MAX9814 posiada o wiele niższą gęstość szumów.
-\section{Generator obwiedni}
-Czujnik firmy Adafruit nie posiada wyjścia umożliwiającego pomiar amplitudy. Dlatego też konieczne jest skonstruowanie zewnętrznego układu odpowiadającego za generowanie obwiedni. Rozwiąznie to podyktowane jest chęcią pominięcia złożonych obliczeń na mikrokontrolerze związanych z tranformatą Hilberta. Zastosowano prosty detektor obwiedni.
+Ostatecznie wybrano rozwiązanie zaproponowane przez firmę Adafruit, ze względu na automatyczną kontrolę wzmocnienia, możliwość regulowania współczynnika Attack/Release oraz o wiele korzystaniejszą wartość współczynnika zawartości harmonicznych THD który w układzie MAX9814 dla częstotliwości 1kHz plasuje się na poziomie poniżej 0,1\%. MAX9814 posiada również o wiele niższą gęstość szumów.
+\section{Detektor obwiedni}
+Czujnik firmy Adafruit nie posiada wyjścia umożliwiającego bezpośredni pomiar amplitudy. Dlatego też konieczne jest skonstruowanie zewnętrznego układu odpowiadającego za generowanie obwiedni. Rozwiąznie to podyktowane jest chęcią pominięcia złożonych obliczeń na mikrokontrolerze związanych z tranformatą Hilberta. Zastosowano prosty detektor obwiedni, którego budowa została przedstawiona na rys. \ref{fig-generatorobwiedni}.
 \begin{figure}
 
     \centering
 
   \includegraphics[width=0.6\textwidth, angle=0]{obwiednia.png}
 
-    \caption{Schemat detektora obwiedni}
-
+    \caption{Schemat detektora obwiedni \cite{obwiednia}}
+\label{fig-generatorobwiedni}
 
 \end{figure}
 \newpage
-\noindent Dioda umożliwia przepływ prądu tylko jeśli zacisk wejściowy ma potencjał wyższy niż zacisk wyjściowy, kondensator gromadzi ładunek na zboczu narastającym następnie powoli uwalnia go przez rezystor gdy wzgórze opada co w efekcie pozwala uzyskać  filtr dolnoprzepustowy. Do zbudowania układu użyto diody 1N914 ze względu na jej dużą szybkość przełączania i wysoką przewodność. 
+\noindent Dioda umożliwia przepływ prądu tylko jeśli zacisk wejściowy ma potencjał wyższy niż zacisk wyjściowy, kondensator gromadzi ładunek na zboczu narastającym następnie powoli uwalnia go przez rezystor gdy wzgórze opada co w efekcie pozwala uzyskać filtr dolnoprzepustowy. Do zbudowania układu użyto diody 1N914 ze względu na jej dużą szybkość przełączania (\unit[4]{ns}) i wysoką przewodność. 
 \section{Mikrokontroler}
 Kolejnym krokiem przetwarzania sygnału uzyskanego z matrycy mikrofonów jest jego spróbkowanie oraz konwersja do postaci cyfrowej. 
 Chcąc nie zwiększać ilości elementów w układzie elektronicznym zdecydowano się na zastosowanie przetwornika ADC który będzie jednym z peryferiów mikrokontrolera. Przy projektowaniu systemu brano pod uwagę głównie mikrokontrolery firmy STM32 ze względu na to, że dostępne są:
@@ -230,8 +216,7 @@ Poszukiwania zawężono do mikrokontrolerów z rodziny F4, ponieważ są one opa
 \item Częstotliwość taktowania do 180MHz.
 \item Trzy przetworniki ADC o rozdzielczości 12 bitów.
 \item 16--strumieniowy kontroler DMA.
-\item 6 interfejsów UART, które pozwolą na jednoczesne monitorowanie każdego z mikrofonów przy przeprowadzaniu testów.
-\item 128kB pamięci RAM.
+\item 6 interfejsów UART, które pozwolą na monitorowanie każdego z mikrofonów przy przeprowadzaniu testów.
 \end{itemize} 
 \chapter{Projekt i realizacja modułu
  kierunku przylotu sygnału akustycznego}
@@ -250,11 +235,11 @@ Poszukiwania zawężono do mikrokontrolerów z rodziny F4, ponieważ są one opa
 
 \end{figure}
 %
-Wzmocniony sygnał audio pochodzący z mikrofonów zostaje podany na wejście mikrokontrolera i detektora obwiedni. Dodatkowo możliwe też jest bezpośrednie podłączenie do układu oscyloskopu, który jest pomocny podczas fazy testowej modułu. Wyjście detektora obwiedni podłączono do mikrokontrolera. Dane z mikrokontrolera wysyłane są za pomocą interfejsu UART. Sygnały tego interfejsu przekierowane są do układu MAX232, który do komunikacji z komputerem udostępnia interfejs USB. Porównanie sygnałów audio otrzymanych przez mikrofony oraz mikrokontroler posłuży do sprawdzenia poprawności działania układu. 
-\section{Schemat oraz płytka PCB}
+Wzmocniony sygnał audio pochodzący z mikrofonów zostaje podany na wejście mikrokontrolera i detektora obwiedni. Dodatkowo możliwe też jest bezpośrednie podłączenie do układu oscyloskopu, który jest pomocny podczas fazy testowej modułu. Wyjście detektora obwiedni podłączono do mikrokontrolera. Dane z mikrokontrolera wysyłane są za pomocą interfejsu UART. Sygnały tego interfejsu przekierowane są do układu MSX FT232RL, który do komunikacji z komputerem udostępnia interfejs USB. Porównanie sygnałów audio otrzymanych przez mikrofony oraz mikrokontroler posłuży do sprawdzenia poprawności działania układu. 
+\section{Schemat układu}
 Do zaprojektowania schematu elektronicznego oraz płytki PCB zostało użyte oprogramowanie KiCad.
 \subsection{Sekcja zasilania}
-Moduł został zasilony napięciem stałym 5V pochodzącym z zewnętrznego zasilacza sieciowego. Jednak z uwagi na to że mikrokontroler oraz systemy  mikrofonowe powinny zostać zasilone napięciem 3,3V, do modułu zaimplementowano stabilizator liniowy LM1117(patrz rys. \ref{fig-stabilizator}).
+Moduł został zasilony napięciem stałym 5V pochodzącym z zewnętrznego zasilacza sieciowego. Jednak z uwagi na to że mikrokontroler oraz systemy  mikrofonowe powinny zostać zasilone napięciem \unit[3,3]{V}, do modułu zaimplementowano stabilizator liniowy LM1117(patrz rys. \ref{fig-stabilizator}).
 \begin{figure}[ht]
 
     \centering
@@ -267,10 +252,10 @@ Moduł został zasilony napięciem stałym 5V pochodzącym z zewnętrznego zasil
 
 \end{figure}
 
-W projekcie pominięto zabezpieczenie przed odwrotną polaryzacją źródła zasilania, ponieważ użyta wtyczka zasilacza nie pozwala podłączyć zasilania odwrotnie.
+
 
 \subsection{Sekcja mikrofonów}
-Ze względu na fakt, że mikrofony znajdują się na gotowych komercyjnych PCB , zostaną one przylutowane do płytki głównej poprzez goldpin. Zasilane są one napięciem 3,3V (patrz rys. \ref{fig-mikrofony}).
+Ze względu na fakt, że mikrofony znajdują się na gotowych komercyjnych PCB , zostaną one przylutowane do płytki głównej poprzez goldpin. Zasilane są one napięciem \unit[3,3]{V} (patrz rys. \ref{fig-mikrofony}).
 \begin{figure}[ht]
 
     \centering
@@ -311,7 +296,7 @@ W tej sekcji zrealizowano również wyprowadzenie używane przy podłączeniu os
 \newpage
 
 \subsection{Sekcja mikrokontrolera}
-Mikrokontroler został zasilony napięciem 3.3V, dotakowo przy jego sekcji zasilania zastosowano filtry tak aby całkowicie wyeliminować wpływ ewentualnych tętnień na jego pracę (patrz rys. \ref{fig-filtry}).
+Mikrokontroler został zasilony napięciem \unit[3.3]{V}, dotakowo przy jego sekcji zasilania zastosowano filtry tak aby całkowicie wyeliminować wpływ ewentualnych tętnień na jego pracę (patrz rys. \ref{fig-filtry}).
 \begin{figure}[ht]
 
     \centering
@@ -324,7 +309,7 @@ Mikrokontroler został zasilony napięciem 3.3V, dotakowo przy jego sekcji zasil
 
 \end{figure}
 
-Kolejną częścią tej sekcji jest podłączenie do przetwornika ADC mikrokontrolera sygnałów otrzymanych z generatora obwiedni oraz mikrofonów (patrz rys. \ref{fig-adc}).
+Kolejną częścią tej sekcji jest podłączenie do przetwornika ADC mikrokontrolera sygnałów otrzymanych z detektora obwiedni oraz mikrofonów (patrz rys. \ref{fig-adc}).
 \begin{figure}[ht]
 
     \centering
@@ -349,10 +334,53 @@ Wyprowadzono także złącze programatora i interfejsu USART, służą one do pr
     
 
 \end{figure}
+\chapter{Implementacja programowa metody wyznaczania kierunku przylotu sygnału}
+Dzięki zastosowaniu mikrofonów z wbudowanym torem wzmocnienia oraz prostych detektorów obwiedni, zadanie stworzenia systemu zostało uproszczone do odebrania przez mikrokontroler danych z czujników,wysyłania ich poprzez UART i poprawnej implementacji algorytmu {\em beamforming}. Zarówno do implementacji algorytmu jak i zaprogramowania mikrokontrolera wykorzystano język C. 
+\section{Konfiguracja i oprogramowanie mikrokontrolera}
+Mikrokontroler otrzymuje z detektorów obwiedni sygnał w postaci analogowej. W przetworniku ADC następuje jego dyskretyzacja. Taktowanie głównego zegara zostało ustawione na \unit[8]{Mhz}.Natomiast przetwornik jest taktowany częstotliwością \unit[4]{Mhz}, a jego roździelczość wynosi 12 bitów. Ilość cykli konwersji to 480, taka konfiguracja pozwala uzyskać czas konwersji jednego kanału na poziomie \unit[246]{$\mu$s}. Przydatnym okazało się także użycie kontrolera DMA (Direct Memory Access), który ułatwił obsługę peryferiów oraz przyśpieszyło transfer danych miedzy nimi a pamięcią mikrokontrolera.\newline
+Każda z próbek jest następnie wysyłana do portu szeregowego komputera za pomocą interfejsu USART ustawionego na tryb asynchroniczny. Ramka wysyłanych danych wygląda w sposób przedstawiony w poniższej tabeli.
+\newcolumntype{j}{m{40pt}}
+\newline
+\newline
+\begin{tabular}{|j|j|j|j|j|j|j|j|j|} \hline
+Znak początku ramki & mikrofon 1 & znak & mikrofon 2 & znak & mikrofon 3 & znak & mikrofon 4 & znak końca ramki \\
+
+\hline 
+X & 1000 & ; & 1001 & ; & 1002 & ; & 1003 & $\backslash$n \\ \hline
+\end{tabular}
+
+
+\section{Implementacja Beamforming}
+Program odbiera dane z portu szeregowego oraz je parsuje.Przykładowy ciąg odebranych danych przedstawiono na rys \ref{fig-data}. 
+
+ \begin{figure}[!ht]
+
+    \centering
+
+  \includegraphics[width=0.2\textwidth, angle=0]{dane.png}
+
+    \caption{Przykładowy ciąg danych}
+ \label{fig-data}
+    
+
+\end{figure}
+Następnie próbki sygnału zapisywane są do tablic, które reprezentują go w algorytmie. Działanie algorytmu zostało przedstawione na schemacie blokowym (patrz rys. \ref{fig-schemblok}).\\ Po wczytaniu przez program czterech tablic zawierających sygnał z mikrofonów następuje dodanie do każdego z nich opóźnienia odpowiadającego kątowi który aktualnie jest sprawdzany. Tablice są następnie sumowane. Z uwagi na fakt że przechowują one sygnał pod postacią dyskretną, aby dokładnie wyznaczyć jego wartość musi zostać przeprowadzona interpolacja liniowa. Każda kolejna iteracja algorytmu to kąt pod którym może znajdować się źródło dźwięku. Faktyczny kąt padania fali akustycznej to maksimum sumy sygnałów dla każdej z iteracji. 
+\begin{figure}[ht]
+
+    \centering
+
+  \includegraphics[width=0.4\textwidth, angle=0]{blokowy.png}
+
+    \caption{Schemat blokowy}
+ \label{fig-schemblok}
+    
+
+\end{figure}
+
 
 \chapter{Testy i eksperymenty}
 \section{Testy mikrofonów i detektorów obwiedni}
-W celu sprawdzenia poprawności działania układu, przeprowadzono testy działania mikrofonów oraz detektorów obwiedni. Do analizy sygnału użyto oscyloskopu. W pierwszej kolejności zbadano przebieg sygnału w ciszy, miało to na celu sprawdzenie w jakim stopniu szumy tła mogą wpłynąć na wyniki pomiarów.(patrz rys. \ref{fig-tlo}). Sygnał oznaczony kolorem zielonym jest wyjściem mikrofonu, natomiast kolorem pomarańczowym oznaczono wyjście detektora obwiedni. 
+W celu sprawdzenia poprawności działania układu, przeprowadzono testy działania mikrofonów oraz detektorów obwiedni. Do analizy sygnału użyto oscyloskopu. W pierwszej kolejności zbadano przebieg sygnału w ciszy. Miało to na celu sprawdzenie w jakim stopniu szumy tła mogą wpłynąć na wyniki pomiarów.Wyniki przedstawiono na rys. \ref{fig-tlo}. Sygnał oznaczony kolorem zielonym jest wyjściem mikrofonu, natomiast kolorem pomarańczowym oznaczono wyjście detektora obwiedni. 
 \begin{figure}[ht]
 
     \centering
@@ -384,7 +412,7 @@ Kolejnym krokiem było sprawdzenie poprawności działania detektora obwiedni, a
 
 
 \section{Testy działania programu}
-Pierwsze testy działania programu zostały przeprowadzone bez podłączania systemu mikrofonów, miało to na celu sprawdzenie działania algorytmu w hermetycznym środowisku, dzięki takiemu działaniu można było założyć że wszystkie błędy wynikały z niepoprawnej implementacji Sum and Delay Bemaforming.
+Pierwsze testy działania programu zostały przeprowadzone bez podłączania systemu mikrofonów. Miało to na celu sprawdzenie działania algorytmu w hermetycznym środowisku. Dzięki takiemu działaniu można było założyć że wszystkie błędy wynikały z niepoprawnej implementacji Sum and Delay Bemaforming.
 Na wejście algorytmu został podany sygnał o przebiegu trójkątnym (patrz rys.\ref{fig-sygnal}).
 \begin{figure}[!ht]
 
@@ -400,7 +428,7 @@ Na wejście algorytmu został podany sygnał o przebiegu trójkątnym (patrz rys
 
 \newpage
 
-Założono że każdy z mikrofonów otrzymał ten sam sygnał który nie jest opóźniony, dla takich danych poprawnie działający algorytm powinien zwrócić maksymalną wartość korelacji w punkcie odpowiadającym kątowi 90 stopni. Wyniki eksperymentu można zaobserwować na poniższym wykresie
+Założono że każdy z mikrofonów otrzymał ten sam sygnał który nie jest opóźniony. Dla takich danych poprawnie działający algorytm powinien zwrócić maksymalną wartość korelacji w punkcie odpowiadającym kątowi 90 stopni. Wyniki eksperymentu można zaobserwować na poniższym wykresie
 (patrz rys.\ref{fig-suma}). Wykres dowodzi poprawności działania programu, ponieważ widać na nim jak w miare zbliżania się watości kąta do 90 stopni rośnie wartość współczynnika korelacji.
 
 \begin{figure}[!ht]
@@ -417,7 +445,7 @@ Założono że każdy z mikrofonów otrzymał ten sam sygnał który nie jest op
 
 %I=dt/T
 
-Następnie, aby sprawdzić poprawność działania algorytmu dla sygnałów opóźnionych na wejście algorytmu podano cztery różne sygnały opóźnione w taki sposób aby symulowały kąt przybycia fali akustycznej równy 70 stopni. Dodatkowo aby upewnić się, że szumy otoczenia nie wpływają na wynik końcowy dodano do sygnału  zakłócenie którego opóźnienie sugeruje, że znajduję się on pod kątem 120 stopni względem matrycy (patrz rys.\ref{fig-opoznienia}). 
+Następnie, aby sprawdzić poprawność działania algorytmu dla sygnałów opóźnionych na wejście algorytmu podano cztery różne sygnały opóźnione w taki sposób aby symulowały kąt przybycia fali akustycznej równy 70 stopni. Dodatkowo aby upewnić się, że szumy otoczenia nie wpływają na wynik końcowy dodano do sygnału zakłócenie którego opóźnienie sugeruje, że znajduję się on pod kątem 120 stopni względem matrycy (patrz rys.\ref{fig-opoznienia}). 
 
 \begin{figure}[!ht]
 
@@ -431,7 +459,7 @@ Następnie, aby sprawdzić poprawność działania algorytmu dla sygnałów opó
 
 \end{figure}
 
-Wynikiem tego testu jest wykres korelacji sygnału, który potwierdza, że zaimplementowany algorytm Sum and Delay Beamforming działa poprawnie, ponieważ maksimum korelacji sygnałów odpowiada kątowi 70 stopni (patrz rys.\ref{fig-korelacja}). .
+Wynikiem tego testu jest wykres korelacji sygnału, który potwierdza, że zaimplementowany algorytm Sum and Delay Beamforming działa poprawnie, ponieważ maksimum korelacji sygnałów odpowiada kątowi 70 stopni (patrz rys.\ref{fig-korelacja}). \cite{adnote1}
 
 \begin{figure}[!ht]
 
@@ -444,10 +472,40 @@ Wynikiem tego testu jest wykres korelacji sygnału, który potwierdza, że zaimp
     
 
 \end{figure}
+\section{Testy końcowe}
+Po przeprowadzeniu testów mikrofonów okazało się, że nawet w momencie kiedy dźwięk został nagrany i odtworzony, wartości sygnału  na wyjściu detektorów różniły się od siebie. Z uwagi na ten fakt chcąc zapewnić dokładną powtarzalność testów zdecydowano się na pobranie próbek i zapisanie ich do pliku tekstowego. Sygnał zapisany w pliku przedstawiono na rysunku \ref{fig-micdata}. 
+\begin{figure}[ht!]
+
+    \centering
+
+  \includegraphics[width=0.9\textwidth, angle=0]{micdata.png}
+
+    \caption{Sygnał z mikrofonów}
+ \label{fig-micdata}
+    
+
+\end{figure}
+Źródło dźwięku było oddalone o około \unit[15]{cm} od matrycy mikrofonów i zostało ustawione pod kątem 90 stopni. Dźwiękiem było cykliczne klikanie w klawisz syntezatora odpowiadający nucie $C_5$, taki zabieg pozwolił określić częstotliwość sygnału. Dla nuty $C_5$ częstotliwość tonu podstawowego wynosi \unit[523.25]{Hz}, co  mieści się w zakresie odbieranym przez mikrofony. Otrzymany w ten sposób wykres korelacji posiada maksimum w punkcie 90 stopni (patrz rys. \ref{fig-mickor}). Potwierdza to poprawność działania algorytmu dla danych otrzymywanych bezpośrednio z matrycy czujników.
+
+\begin{figure}[!ht]
+
+    \centering
+
+  \includegraphics[width=0.9\textwidth, angle=0]{maksimum.png}
+
+    \caption{Wartości korelacji dla sygnału z mikrofonów}
+ \label{fig-mickor}
+    
+
+\end{figure}
+
+\chapter{Podsumowanie}
+
 % \appendix tworzy dodatek
 
 \addcontentsline{toc}{chapter}{\bibname} %utworzenie w spisie treĹ›ci pozycji Literatura
-\bibliography{bibliografia} % wstawia bibliografiÄ™ korzystajÄ…c z pliku bibliografia.bib - dotyczy BibTeXa, jeĹĽeli nie korzystamy z BibTeXa naleĹĽy uĹĽyÄ‡ otoczenia thebibliography
+%\bibliographystyle{plain}
+\bibliography{bibliografia.bib} % wstawia bibliografiÄ™ korzystajÄ…c z pliku bibliografia.bib - dotyczy BibTeXa, jeĹĽeli nie korzystamy z BibTeXa naleĹĽy uĹĽyÄ‡ otoczenia thebibliograph
 
 %opcjonalnie moĹĽe siÄ™ tu pojawiÄ‡ spis rysunkĂłw i tabel
 % \listoffigures

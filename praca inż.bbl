@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+
+\bibitem{obwiednia}
+https://wiki.analog.com/university/courses/electronics/electronics-lab-envelope-detector.
+\newblock [dostęp: 2019-11-20].
+
+\bibitem{max9814}
+https://www.adafruit.com/product/1713.
+\newblock [dostęp: 2019-11-20].
+
+\bibitem{sparkfun}
+https://www.sparkfun.com/products/14262.
+\newblock [dostęp: 2019-11-20].
+
+\bibitem{papez2013acoustic}
+M.~PAPEZ,  K.~VLCEK.
+\newblock Acoustic source localization based on beamforming.
+\newblock {\em Recent Advances in Systems Science}, strony 259--264, 2013.
+
+\bibitem{seltzer2003microphone}
+M.~L. Seltzer.
+\newblock Microphone array processing for robust speech recognition.
+\newblock {\em CMU, Pittsburgh PA, PhD Thesis}, 2003.
+
+\end{thebibliography}
